@@ -1,11 +1,15 @@
-import Shows from "@/Components/Shows";
+// pages/index.js
 
+import Display from '@/Components/Display';
 
-
-export default function Home() {
+const IndexPage = () => {
   return (
     <div>
-      <Shows/>
+       
+      
+      <Display/>
     </div>
   );
-}
+};
+
+export default IndexPage;
