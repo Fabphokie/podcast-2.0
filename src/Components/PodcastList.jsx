@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './PodcastList.module.css'
+import styles from '../Components/PodcastList.module.css'
 
 const PodcastList = () => {
   const [podcasts, setPodcasts] = useState([]);
@@ -25,26 +25,27 @@ const PodcastList = () => {
   }, []);
 
   return (
-    <div className="podcast-list">
-    <h1>Podcasts</h1>
-    {loading ? (
-      <p>Loading podcasts...</p>
-    ) : (
-      <ul>
-        {podcasts.map((podcast) => (
-          <li key={podcast.id} className="podcast-card">
-            <div className="card-content">
-              <img className='img' style={{position: 'sticky', top: 42}} src={podcast.image} alt='pic'></img>
-              <h2>{podcast.title}</h2>
-              <p>{podcast.numSeasons} Seasons</p>
-              <p>Last Updated: {podcast.lastUpdated}</p>
-              <p>Genres: {podcast.genres.join(', ')}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
+    <div className={styles.PodcastList}>
+      
+      {loading ? (
+        <p>Loading podcasts...</p>
+      ) : (
+        <ul className={styles.cardList}>
+          {podcasts.map((podcast) => (
+            <li key={podcast.id} className={styles.podcastCard}>
+
+              <img className={styles.img} style={{ position: 'sticky', top: 42 }} src={podcast.image} alt='pic'></img>
+              <div className={styles.cardContent}>
+                <h2>{podcast.title}</h2>
+                <p>{podcast.numSeasons} Seasons</p>
+                <p>Last Updated: {podcast.lastUpdated}</p>
+                <p>Genres: {podcast.genres.join(', ')}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 };
 

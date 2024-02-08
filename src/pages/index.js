@@ -1,13 +1,16 @@
 // pages/index.js
 
-import Display from '@/Components/Display';
+import Header from '@/Components/Header';
+import PodcastList from '@/Components/PodcastList';
 
 const IndexPage = () => {
   return (
     <div>
-       
+      <Header/>
+       <PodcastList/>
+
       
-      <Display/>
+      
     </div>
   );
 };

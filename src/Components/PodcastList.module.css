@@ -1,35 +1,33 @@
-.podcast-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    /* Adjust as needed */
-    gap: 20px;
-    /* Adjust the gap between cards */
-}
-
-.img  {
-    
-}
-
-.podcast-card {
-    list-style: none;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+.PodcastList {
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card-content {
-    display: flex;
-    flex-direction: column;
+/* Target every odd child to push them down */
+.cardList {
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    list-style-type: none;
+    padding: 0;
 }
 
-.card-content img {
-    width: 100%;
-    max-width: 200px;
-    /* Adjust as needed */
-    height: auto;
+
+
+
+.podcastCard {
+    background-color: #f0f0f0;
     border-radius: 8px;
-    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.cardContent {
+    padding: 10px;
+}
+
+.img {
+    width: 100%;
+    height: auto;
 }
 
 .card-content h2 {
