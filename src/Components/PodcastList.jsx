@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import styles from '../Components/PodcastList.module.css'
+// components/PodcastList.js
 
+import React, { useState, useEffect } from 'react';
+import Spinner from './Spinner'; // Import the Spinner component
+import styles from '../Components/PodcastList.module.css';
+import Link from 'next/link';
 const PodcastList = () => {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true);
-  //const showId = 'https://podcast-api.netlify.app/id/${showId}'; 
+
   useEffect(() => {
     const fetchPodcasts = async () => {
       try {
@@ -26,15 +29,17 @@ const PodcastList = () => {
 
   return (
     <div className={styles.PodcastList}>
-      
       {loading ? (
-        <p>Loading podcasts...</p>
+        <Spinner /> // Show spinner while loading
       ) : (
         <ul className={styles.cardList}>
           {podcasts.map((podcast) => (
             <li key={podcast.id} className={styles.podcastCard}>
-
-              <img className={styles.img} style={{ position: 'sticky', top: 42 }} src={podcast.image} alt='pic'></img>
+               <Link href="/PodcastPreview">
+                <>
+                  <img className={styles.img} style={{ position: 'sticky', top: 42 }} src={podcast.image} alt='pic'></img>
+                </>
+              </Link>
               <div className={styles.cardContent}>
                 <h2>{podcast.title}</h2>
                 <p>{podcast.numSeasons} Seasons</p>

@@ -1,0 +1,25 @@
+.landingTitle{
+    font-size: 200px;
+
+}
+.landingContent {
+    font-size: xx-large;
+}
+
+.landingButton{
+    display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background-color: #000000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.landingButton:hover {
+    background-color: #ff00cc;
+}
