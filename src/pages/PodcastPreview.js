@@ -1,33 +1,31 @@
-import React,{useState, useEffect} from "react";
-export default function Preview() {
+import React from 'react';
+import { useRouter } from 'next/router';
 
-    const [podcasts, setPodcasts] = useState([]);
-    const [loading, setLoading] = useState(true);
+const PodcastPreview = () => {
+  const router = useRouter();
+  const { showId, data } = router.query; // Retrieve showId and data from query parameters
 
-    useEffect(() => {
-        const fetchPodcasts = async () => {
-            try {
-                const response = await fetch('https://podcast-api.netlify.app/shows');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch podcasts');
-                }
-                const data = await response.json();
-                setPodcasts(data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching podcasts:', error.message);
-                setLoading(false);
-            }
-        };
+  // Parse the JSON string to get the selected show data
+  const selectedShow = data ? JSON.parse(data) : null;
 
-        fetchPodcasts();
-    }, []);
-
-
-    return (
+  return (
+    <div>
+      <h1>Podcast Preview</h1>
+      {selectedShow ? (
         <div>
-            <h2>{podcasts.title}</h2>
-            <img  style={{ position: 'sticky', top: 42 }} src={podcasts.image} alt='pic'></img>
+          <h2>{selectedShow.title}</h2>
+          <img
+                    //className={styles.img}
+                    //style={{ position: 'sticky', top: 42 }}
+                    src={selectedShow.image}
+                    alt='pic'></img>
+          {/* Render other details of the selected show */}
         </div>
-    )
-}
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+};
+
+export default PodcastPreview;
