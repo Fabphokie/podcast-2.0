@@ -1,0 +1,29 @@
+.list{
+    background-color: rgba(4, 4, 4, 0.948);
+}
+
+.carouselContainer {
+  position: relative;
+}
+
+.customCarousel {
+ 
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.customCarousel .carousel .carousel-slider .control-circles {
+  display: none;
+}
+
+.carouselSlide {
+  background-color: #f5f5f5;
+  padding: 20px;
+  text-align: center;
+  
+}
+
+.carouselTitle {
+  color: #f703f7;
+  font-size: 60px;
+}

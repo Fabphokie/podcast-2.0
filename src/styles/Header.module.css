@@ -1,13 +1,13 @@
 /* styles/Header.css */
 
 .header {
-    background-color: #0ab1ff;
+    background-color: #089bf6;
     color: #fff;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
+    height: 100px;
 }
 
 .header h1 {
