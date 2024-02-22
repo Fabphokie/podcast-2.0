@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 const PodcastList = () => {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showFullDescription, setShowFullDescription] = useState([]); // State to track whether to show full description for each card
   const router = useRouter();
 
   useEffect(() => {
@@ -18,6 +19,8 @@ const PodcastList = () => {
         }
         const data = await response.json();
         setPodcasts(data);
+        // Initialize showFullDescription state for each card to false
+        setShowFullDescription(Array(data.length).fill(false));
         setLoading(false);
       } catch (error) {
         console.error('Error fetching podcasts:', error.message);
@@ -48,6 +51,14 @@ const PodcastList = () => {
     }
   };
 
+  const toggleDescription = (index) => {
+    setShowFullDescription(prevState => {
+      const newState = [...prevState];
+      newState[index] = !newState[index]; // Toggle the state for the clicked card
+      return newState;
+    });
+  };
+
   return (
     <div className={styles.PodcastList}>
       {loading ? (
@@ -55,7 +66,7 @@ const PodcastList = () => {
       ) : (
         <div>
           <ul className={styles.cardList}>
-            {podcasts.map((podcast) => (
+            {podcasts.map((podcast, index) => (
               <li key={podcast.id} className={styles.podcastCard}>
                 <Link href="#" onClick={() => handleSelectShow(podcast.id)}>
                   <img
@@ -66,9 +77,15 @@ const PodcastList = () => {
                 </Link>
                 <div className={styles.cardContent}>
                   <h2>{podcast.title}</h2>
-                  <p>{podcast.numSeasons} Seasons</p>
-                  <p>Last Updated: {podcast.lastUpdated}</p>
+                  <p> Seasons :{podcast.seasons}</p>
+                  <p>Last Updated: {podcast.updated}</p>
                   <p>Genres: {podcast.genres.join(', ')}</p>
+                  
+                  <p>{showFullDescription[index] ? podcast.description : podcast.description.slice(0, 100) + '...'}</p>
+                  
+                  <button onClick={() => toggleDescription(index)}>
+                    {showFullDescription[index] ? 'Show less' : 'Show more'}
+                  </button>
                 </div>
               </li>
             ))}
