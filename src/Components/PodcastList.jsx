@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 const PodcastList = () => {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showFullDescription, setShowFullDescription] = useState([]); // State to track whether to show full description for each card
+  const [showFullDescription, setShowFullDescription] = useState([]); 
   const router = useRouter();
 
   useEffect(() => {
@@ -19,7 +19,6 @@ const PodcastList = () => {
         }
         const data = await response.json();
         setPodcasts(data);
-        // Initialize showFullDescription state for each card to false
         setShowFullDescription(Array(data.length).fill(false));
         setLoading(false);
       } catch (error) {
