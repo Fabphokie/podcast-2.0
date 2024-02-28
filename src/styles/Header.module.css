@@ -1,4 +1,4 @@
-/* styles/Header.css */
+
 
 .header {
     background-color: #089bf6;
@@ -41,4 +41,35 @@
 
 .header nav ul li a:hover {
     text-decoration: underline;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  
+  
+}
+
+.searchInput {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 8px;
+  font-size: 16px;
+  outline: none;
+  height: 200px;
+}
+
+.searchButton {
+  padding: 2px ;
+  
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.searchButton:hover {
+  background-color: #0056b3;
 }

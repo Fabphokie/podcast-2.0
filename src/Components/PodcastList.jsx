@@ -1,13 +1,14 @@
+// PodcastList.jsx
 import React, { useState, useEffect } from 'react';
 import Spinner from './Spinner';
 import styles from '../Components/PodcastList.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const PodcastList = () => {
+const PodcastList = ({ searchQuery }) => {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showFullDescription, setShowFullDescription] = useState([]); 
+  const [showFullDescription, setShowFullDescription] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -33,7 +34,9 @@ const PodcastList = () => {
   const handleSelectShow = async (showId) => {
     try {
       setLoading(true);
-      const response = await fetch(`https://podcast-api.netlify.app/id/${showId}`);
+      const response = await fetch(
+        `https://podcast-api.netlify.app/id/${showId}`
+      );
       if (!response.ok) {
         throw new Error('Failed to fetch detailed show data');
       }
@@ -42,7 +45,7 @@ const PodcastList = () => {
       // Navigate to PodcastPreview page with selected show data
       router.push({
         pathname: '/PodcastPreview',
-        query: { showId: showId, data: JSON.stringify(data) } // Pass showId and data as query parameters
+        query: { showId: showId, data: JSON.stringify(data) }, // Pass showId and data as query parameters
       });
     } catch (error) {
       console.error('Error fetching detailed show data:', error.message);
@@ -51,12 +54,17 @@ const PodcastList = () => {
   };
 
   const toggleDescription = (index) => {
-    setShowFullDescription(prevState => {
+    setShowFullDescription((prevState) => {
       const newState = [...prevState];
       newState[index] = !newState[index]; // Toggle the state for the clicked card
       return newState;
     });
   };
+
+  // Filter podcasts based on search query
+  const filteredPodcasts = podcasts.filter((podcast) =>
+    podcast.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className={styles.PodcastList}>
@@ -65,23 +73,28 @@ const PodcastList = () => {
       ) : (
         <div>
           <ul className={styles.cardList}>
-            {podcasts.map((podcast, index) => (
+            {filteredPodcasts.map((podcast, index) => (
               <li key={podcast.id} className={styles.podcastCard}>
                 <Link href="#" onClick={() => handleSelectShow(podcast.id)}>
                   <img
                     className={styles.img}
                     style={{ position: 'sticky', top: 42 }}
                     src={podcast.image}
-                    alt='pic'></img>
+                    alt="pic"
+                  ></img>
                 </Link>
                 <div className={styles.cardContent}>
                   <h2>{podcast.title}</h2>
                   <p> Seasons :{podcast.seasons}</p>
                   <p>Last Updated: {podcast.updated}</p>
                   <p>Genres: {podcast.genres.join(', ')}</p>
-                  
-                  <p>{showFullDescription[index] ? podcast.description : podcast.description.slice(0, 100) + '...'}</p>
-                  
+
+                  <p>
+                    {showFullDescription[index]
+                      ? podcast.description
+                      : podcast.description.slice(0, 100) + '...'}
+                  </p>
+
                   <button onClick={() => toggleDescription(index)}>
                     {showFullDescription[index] ? 'Show less' : 'Show more'}
                   </button>
